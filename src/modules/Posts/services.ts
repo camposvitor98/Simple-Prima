@@ -13,6 +13,9 @@ type UpdateViewsProps = {
 type DeletePostProps = {
   id: string;
 };
+type GetPostByIdProps = {
+  id: string;
+};
 type UpdatePublishedProps = {
   id: string;
 };
@@ -54,7 +57,7 @@ class PostsServices {
     });
   };
 
-  getPostById = async (props: DeletePostProps) => {
+  getPostById = async (props: GetPostByIdProps) => {
     const { id } = props;
 
     return await prisma.post.findUnique({
@@ -62,6 +65,9 @@ class PostsServices {
         id: Number(id),
       },
     });
+  };
+  getAllPosts = async () => {
+    return await prisma.post.findMany();
   };
 
   updateViews = async (props: UpdateViewsProps) => {

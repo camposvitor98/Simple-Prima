@@ -31,7 +31,7 @@ class PostsControllers {
 
       return res.json(post);
     } catch (err) {
-      return res.json({
+      return res.status(500).json({
         error: `Post with ID ${id} does not exist in the database`,
       });
     }
@@ -49,7 +49,7 @@ class PostsControllers {
       });
       return res.json(feed);
     } catch (err: any) {
-      return res.json({ error: err.message });
+      return res.status(500).json({ error: err.message });
     }
   };
 
@@ -61,7 +61,19 @@ class PostsControllers {
 
       return res.json(post);
     } catch (err: any) {
-      return res.json({ error: err.message });
+      return res.status(500).json({ error: err.message });
+    }
+  };
+
+  getPosts = async (req: Request, res: Response): Promise<Response> => {
+    const { id }: { id?: string } = req.params;
+
+    try {
+      const post = await postsServices.getAllPosts();
+
+      return res.json(post);
+    } catch (err: any) {
+      return res.status(500).json({ error: err.message });
     }
   };
 
@@ -73,7 +85,7 @@ class PostsControllers {
 
       return res.json(postToDelete);
     } catch (err: any) {
-      return res.json({ error: err.message });
+      return res.status(500).json({ error: err.message });
     }
   };
 
@@ -84,7 +96,7 @@ class PostsControllers {
 
       return res.json(postToPublish);
     } catch (err: any) {
-      return res.json({ error: err.message });
+      return res.status(500).json({ error: err.message });
     }
   };
 }

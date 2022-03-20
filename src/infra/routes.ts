@@ -9,6 +9,7 @@ const postsControllers = new PostsControllers();
 routes.post(`/signup`, usersControllers.userSignup);
 
 routes.post(`/post`, postsControllers.createPost);
+routes.get(`/posts`, postsControllers.getPosts);
 
 routes.put("/post/:id/views", postsControllers.updatePostsViews);
 
