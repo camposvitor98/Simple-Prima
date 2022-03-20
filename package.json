@@ -8,12 +8,13 @@
   "author": "camposvitor98",
   "private": false,
   "scripts": {
-    "dev:server": "ts-node src/infra/server.ts"
+    "dev:server": "ts-node-dev src/infra/server.ts"
   },
   "devDependencies": {
     "@types/node": "^17.0.21",
     "prisma": "^3.11.0",
     "ts-node": "^10.7.0",
+    "ts-node-dev": "^1.1.8",
     "typescript": "^4.6.2"
   },
   "dependencies": {
