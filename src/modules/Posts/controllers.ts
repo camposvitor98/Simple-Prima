@@ -38,7 +38,44 @@ class PostsControllers {
   };
 
   getFeed = async (req: Request, res: Response): Promise<Response> => {
-    const { searchString, skip, take, orderBy } = req.query;
+    const {
+      searchString = "",
+      skip,
+      take,
+      orderBy = "asc",
+      ...rest
+    } = req.query;
+
+    // Conferindo se veio algum param não esperado
+    if (Object.entries(rest).length) {
+      console.log(rest);
+      const newRest = Object.entries(rest).reduce(
+        (current: { key: string; value: unknown }[], value) => [
+          ...current,
+          { key: value[0], value: value[1] },
+        ],
+        []
+      );
+
+      if (newRest.length > 1) {
+        return res.status(400).json({
+          error: `Your params (${newRest
+            .map((param) => param.key)
+            .join(", ")}) are not allowed`,
+        });
+      }
+      return res.status(400).json({
+        error: `Your param (${newRest[0].key}) are not allowed`,
+      });
+    }
+
+    // Colocando um param como required
+    if (!take) {
+      return res.status(400).json({
+        error:
+          "Take param is required, please select the amount of posts you want to see!",
+      });
+    }
 
     try {
       const feed = await postsServices.getPublishedFilteredPosts({

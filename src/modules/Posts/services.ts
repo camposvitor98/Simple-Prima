@@ -110,7 +110,6 @@ class PostsServices {
           ],
         }
       : {};
-
     return await prisma.post.findMany({
       where: {
         published: true,
