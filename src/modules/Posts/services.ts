@@ -52,7 +52,7 @@ class PostsServices {
 
     return await prisma.post.delete({
       where: {
-        id: Number(id),
+        id: id,
       },
     });
   };
@@ -62,7 +62,7 @@ class PostsServices {
 
     return await prisma.post.findUnique({
       where: {
-        id: Number(id),
+        id: id,
       },
     });
   };
@@ -74,7 +74,7 @@ class PostsServices {
     const { id } = props;
 
     return await prisma.post.update({
-      where: { id: Number(id) },
+      where: { id: id },
       data: {
         viewCount: {
           increment: 1,
@@ -87,14 +87,14 @@ class PostsServices {
     const { id } = props;
 
     const postData = await prisma.post.findUnique({
-      where: { id: Number(id) },
+      where: { id: id },
       select: {
         published: true,
       },
     });
 
     return await prisma.post.update({
-      where: { id: Number(id) || undefined },
+      where: { id: id || undefined },
       data: { published: !postData?.published },
     });
   };

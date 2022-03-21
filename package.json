@@ -8,7 +8,9 @@
   "author": "camposvitor98",
   "private": false,
   "scripts": {
-    "dev:server": "ts-node-dev src/infra/server.ts"
+    "dev:server": "ts-node-dev src/infra/server.ts",
+    "migration:run": "prisma migrate deploy",
+    "migration:insert": "prisma migrate dev --name"
   },
   "devDependencies": {
     "@types/node": "^17.0.21",
